@@ -1,0 +1,38 @@
+#!/usr/bin/python3
+__author__ = 'Chier Hu'
+import numpy as np
+import random
+step = np.array(((0,1),(0,-1),(1,0),(-1,0)));
+def meettime1 (Y, cap=2000):
+    X = np.array((0,0));
+    Y = np.array(Y);
+    for i in range(cap):
+        if np.array_equal(X,Y):
+            return i
+        Y += random.choice(step)
+    else:
+        return cap
+def meettime2 (Y, cap=1000):
+    X = np.array((0,0));
+    Y = np.array(Y);
+    for i in range(cap):
+        if np.array_equal(X,Y):
+            return i
+        X += random.choice(step)
+        Y += random.choice(step)
+    else:
+        return cap
+if __name__ == "__main__":
+    samplenum = 10000
+    T1 = np.array([meettime1((2,4)) for i in range(samplenum)])
+    T1.sort()
+    print (T1)
+    T2 = np.array([meettime2((2,4)) for i in range(samplenum)])
+    T2.sort()
+    print (T2)
+    import matplotlib.pyplot as plt
+    fig, ax = plt.subplots()
+    ax.plot(np.arange(samplenum)/samplenum,T1)
+    ax.plot(np.arange(samplenum)/samplenum,T1/2)
+    ax.plot(np.arange(samplenum)/samplenum,T2)
+    plt.show()
